@@ -60,11 +60,23 @@ public class LoginPage {
     private WebElement usernameDropdown;
 
     @FindBy(xpath = "//div[@class='layoutToolbarPadding']/a[2]/div/span")
-    private WebElement xpathWelcome;
+    private WebElement xpathWelcomeAmzShp;
+    @FindBy(xpath = "//span[@class='profiles-dropdown-name']")
+    private WebElement xpathWelcomeAmzVideo;
 
-
-    public boolean validateWelcome(){
-        return actionsDriver.validateText(driver, xpathWelcome ,"Hello, Rishabh");
+    public boolean validateWelcome(String appName){
+        boolean flag=false;
+        switch (appName.toLowerCase()) {
+            case ("amazon shopping"):
+                flag= actionsDriver.validateText(driver, xpathWelcomeAmzShp, "Hello, Rishabh");
+            break;
+            case ("amazon videos"):
+                flag= actionsDriver.validateText(driver, xpathWelcomeAmzVideo, "Rishabh Bisht");
+            break;
+            default:
+                System.out.println("Invalid AppName");
+        }
+        return flag;
     }
 
     @FindBy(xpath = "//div[@id='nav-logo']")

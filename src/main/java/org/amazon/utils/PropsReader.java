@@ -8,12 +8,10 @@ import java.util.Properties;
 public class PropsReader {
     public static String filepath;
     public static String configFilesPath="/Users/rishabhbisht/Desktop/Automation/RB_Amazon_Automation_101/src/test/resources/config/";
-
     //Urls
     public static String driver=readPropertiesFile(configFilesPath+"baseConfig.properties").getProperty("driver");
-
-    public static String mainUrl=readPropertiesFile(configFilesPath+"baseConfig.properties").getProperty("mainUrl");
-
+    public static String amazonshoppingUrl=readPropertiesFile(configFilesPath+"baseConfig.properties").getProperty("amazonshoppingUrl");
+    public static String amazonvideosUrl=readPropertiesFile(configFilesPath+"baseConfig.properties").getProperty("amazonvideosUrl");
     public static String username=readPropertiesFile(configFilesPath+"baseConfig.properties").getProperty("username");
 
     public static String password=readPropertiesFile(configFilesPath+"baseConfig.properties").getProperty("password");

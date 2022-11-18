@@ -11,14 +11,14 @@ public class LoginStepDefinition {
 
     LoginSteps loginSteps=new LoginSteps();
 
-    @Given("^Launch the url from--(.*)$")
-    public void launch_the_url_from_prop_file(String loginType) {
-        loginSteps.launchURLandClickSignIn(loginType);
+    @Given("^Launch the--(.*)--from--(.*)$")
+    public void launch_the_url_from_prop_file(String appName,String loginType) {
+        loginSteps.launchURLandClickSignIn(appName, loginType);
     }
 
-    @When("^Enter valid username and password from prop file$")
-    public void enter_valid_username_and_password_from_prop_file()  {
-        loginSteps.enterUserNamePassword();
+    @When("^Enter valid username and password from prop file--(.*)$")
+    public void enter_valid_username_and_password_from_prop_file(String appName)  {
+        loginSteps.enterUserNamePassword(appName);
     }
 
     @When("^Enter valid username and password from datatable$")
@@ -31,13 +31,13 @@ public class LoginStepDefinition {
         loginSteps.enterUserNamePasswordFromExamples(username,password);
     }
 
-    @Then("^Login and Validate successful login$")
-    public void login_and_validate_successful_login() {
-        loginSteps.loginAndValidate();
+    @Then("^Login and Validate successful login--(.*)$")
+    public void login_and_validate_successful_login(String appName) {
+        loginSteps.loginAndValidate(appName);
     }
 
-    @And("^Logout$")
-    public void logout() {
-        loginSteps.logoutAndVerify();
+    @And("^Logout--(.*)$")
+    public void logout(String appName) {
+        loginSteps.logoutAndVerify(appName);
     }
 }

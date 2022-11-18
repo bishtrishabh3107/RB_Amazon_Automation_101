@@ -66,6 +66,7 @@ public class ActionsDriver {
         highlightElement(driver,ele);
     }
 
+
     public void scrollHighlightWaitToBeDisplayed(WebDriver driver, WebElement ele){
         forElementToBeDisplayed(driver,ele);
         highlightElement(driver,ele);

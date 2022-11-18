@@ -131,7 +131,9 @@ public class ActionsDriver {
         try {
             flag = ele.isDisplayed();
             ele.clear();
+            System.out.println("Entered text: "+text);
             ele.sendKeys(text);
+
             // logger.info("Entered text :"+text);
             flag = true;
         } catch (Exception e) {
@@ -226,13 +228,13 @@ public class ActionsDriver {
         return flag;
     }
 
-    /**
-     * Type text at location
-     *
-     * @param locatorName
-     * @param text
-     * @return - true/false
-     */
+//    /**
+//     * Type text at location
+//     *
+//     * @param locatorName
+//     * @param text
+//     * @return - true/false
+//     */
 
 
 
@@ -255,18 +257,18 @@ public class ActionsDriver {
         }
     }
 
-    /**
-     * select value from DropDown by using selectByIndex
-     *
-     * @param locator     : Action to be performed on element (Get it from Object
-     *                    repository)
-     *
-     * @param index       : Index of value wish to select from dropdown list.
-     *
-     * @param locatorName : Meaningful name to the element (Ex:Year Dropdown, items
-     *                    Listbox etc..)
-     *
-     */
+//    /**
+//     * select value from DropDown by using selectByIndex
+//     *
+//     * @param locator     : Action to be performed on element (Get it from Object
+//     *                    repository)
+//     *
+//     * @param index       : Index of value wish to select from dropdown list.
+//     *
+//     * @param locatorName : Meaningful name to the element (Ex:Year Dropdown, items
+//     *                    Listbox etc..)
+//     *
+//     */
 
     public boolean selectByIndex(WebElement element, int index) {
         boolean flag = false;
@@ -286,17 +288,17 @@ public class ActionsDriver {
         }
     }
 
-    /**
-     * select value from DD by using value
-     *
-     * @param locator     : Action to be performed on element (Get it from Object
-     *                    repository)
-     *
-     * @param value       : Value wish to select from dropdown list.
-     *
-     * @param locatorName : Meaningful name to the element (Ex:Year Dropdown, items
-     *                    Listbox etc..)
-     */
+//    /**
+//     * select value from DD by using value
+//     *
+//     * @param locator     : Action to be performed on element (Get it from Object
+//     *                    repository)
+//     *
+//     * @param value       : Value wish to select from dropdown list.
+//     *
+//     * @param locatorName : Meaningful name to the element (Ex:Year Dropdown, items
+//     *                    Listbox etc..)
+//     */
 
     public boolean selectByValue(WebElement element,String value) {
         boolean flag = false;
@@ -317,17 +319,17 @@ public class ActionsDriver {
         }
     }
 
-    /**
-     * select value from DropDown by using selectByVisibleText
-     *
-     * @param locator     : Action to be performed on element (Get it from Object
-     *                    repository)
-     *
-     * @param visibletext : VisibleText wish to select from dropdown list.
-     *
-     * @param locatorName : Meaningful name to the element (Ex:Year Dropdown, items
-     *                    Listbox etc..)
-     */
+//    /**
+//     * select value from DropDown by using selectByVisibleText
+//     *
+//     * @param locator     : Action to be performed on element (Get it from Object
+//     *                    repository)
+//     *
+//     * @param visibletext : VisibleText wish to select from dropdown list.
+//     *
+//     * @param locatorName : Meaningful name to the element (Ex:Year Dropdown, items
+//     *                    Listbox etc..)
+//     */
 
     public boolean selectByVisibleText(String visibletext, WebElement ele) {
         boolean flag = false;

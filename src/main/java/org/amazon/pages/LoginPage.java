@@ -67,4 +67,17 @@ public class LoginPage {
         return actionsDriver.validateText(driver, xpathWelcome ,"Hello, Rishabh");
     }
 
+    @FindBy(xpath = "//div[@id='nav-logo']")
+    private WebElement amazonNavLink;
+    public void clickAmazonNavLink(){
+        actionsDriver.moveToElementClick(driver,amazonNavLink);
+    }
+
+    @FindBy(xpath = "//a[@id='nav-item-signout']")
+    private WebElement signOutLink;
+    public void clickSignOutLink(){
+        actionsDriver.JSClick(driver,signOutLink);
+    }
+
+
 }

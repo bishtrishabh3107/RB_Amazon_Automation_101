@@ -5,12 +5,12 @@ import org.openqa.selenium.support.PageFactory;
 
 public class BasePage {
 
-    protected WebDriver driver;
+    public static WebDriver driver;
     BrowserConfig browserConfig=new BrowserConfig();
 
     public BasePage(){
         PageFactory.initElements(driver,this);
-        this.driver=browserConfig.getDriver();
+        this.driver=BrowserConfig.driver;
     }
 
 }

@@ -6,6 +6,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 
+import java.awt.*;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -16,74 +17,79 @@ import java.util.concurrent.TimeUnit;
 
 public class ActionsDriver {
 
-
+    WebDriver driver;
     int timeout= PropsReader.timeoutInSeconds;
 
+    public ActionsDriver(WebDriver driver) {
+        this.driver=driver;
+    }
+
     // Wait operations
-    private void waitUntilCondition(WebDriver driver, ExpectedCondition condition, String timeoutMessage, int timeout){
+    private void waitUntilCondition(ExpectedCondition condition, String timeoutMessage, int timeout){
         WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(timeout));
         wait.withMessage(timeoutMessage);
         wait.until(condition);
     }
 
-    public void forLoading(WebDriver driver){
+    public void forLoading(){
         ExpectedCondition<Object> condition= ExpectedConditions.jsReturnsValue("return document.readyState==\"complete\";");
         String timeoutMessage="Page didn't load after " + Integer.toString(timeout) + " seconds. ";
-        waitUntilCondition(driver,condition,timeoutMessage,timeout);
+        waitUntilCondition(condition,timeoutMessage,timeout);
     }
 
-    public void forElementToBeDisplayed(WebDriver driver, WebElement webElement){
+    public void forElementToBeDisplayed(WebElement webElement){
         ExpectedCondition<WebElement> condition= ExpectedConditions.visibilityOf(webElement);
         String timeoutMessage=webElement+ " wasn't displayed after" + Integer.toString(timeout) + " seconds. ";
-        waitUntilCondition(driver,condition,timeoutMessage,timeout);
+        waitUntilCondition(condition,timeoutMessage,timeout);
     }
 
-    public void forPresenceToBeDisplayed(WebDriver driver, By elementLocator){
+    public void forPresenceToBeDisplayed(By elementLocator){
         ExpectedCondition<List<WebElement>> condition= ExpectedConditions.presenceOfAllElementsLocatedBy(elementLocator);
         String timeoutMessage=elementLocator+ " elements were not displayed after" + Integer.toString(timeout) + " seconds. ";
-        waitUntilCondition(driver,condition,timeoutMessage,timeout);
+        waitUntilCondition(condition,timeoutMessage,timeout);
     }
 
-    public void forElementToBeClickable(WebDriver driver, WebElement webElement){
+    public void forElementToBeClickable(WebElement webElement){
         ExpectedCondition<WebElement> condition= ExpectedConditions.elementToBeClickable(webElement);
         String timeoutMessage=webElement+ " wasn't displayed after" + Integer.toString(timeout) + " seconds. ";
-        waitUntilCondition(driver,condition,timeoutMessage,timeout);
+        waitUntilCondition(condition,timeoutMessage,timeout);
     }
 
     //highlight and scroll operations
-    public void highlightElement(WebDriver driver, WebElement ele){
+    public void highlightElement(WebElement ele){
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
         jsExecutor.executeScript("arguments[0].setAttribute('style', 'border:3px solid green; background:LightCoral')", ele);
     }
 
-    public void scrollByVisibilityOfElement(WebDriver driver, WebElement ele) {
+    public void scrollByVisibilityOfElement(WebElement ele) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", ele);
     }
 
-    public void scrollHighlight(WebDriver driver, WebElement ele){
-        scrollByVisibilityOfElement(driver,ele);
-        highlightElement(driver,ele);
+    public void scrollHighlight(WebElement ele){
+        scrollByVisibilityOfElement(ele);
+        highlightElement(ele);
     }
 
 
-    public void scrollHighlightWaitToBeDisplayed(WebDriver driver, WebElement ele){
-        forElementToBeDisplayed(driver,ele);
-        highlightElement(driver,ele);
-        scrollByVisibilityOfElement(driver,ele);
+    public void scrollHighlightWaitToBeDisplayed( WebElement ele){
+        forElementToBeDisplayed(ele);
+        highlightElement(ele);
+        scrollByVisibilityOfElement(ele);
     }
 
-    public void scrollHighlightWaitToBeClickable(WebDriver driver, WebElement ele){
-        forElementToBeClickable(driver,ele);
-        highlightElement(driver,ele);
-        scrollByVisibilityOfElement(driver,ele);
+    public void scrollHighlightWaitToBeClickable(WebElement ele){
+        forElementToBeClickable(ele);
+        highlightElement(ele);
+        scrollByVisibilityOfElement(ele);
     }
 
     //click operations
-    public void driverClick(WebDriver driver, WebElement ele) {
-        boolean flag = findElement(driver,ele);
+    public void driverClick(WebElement ele) {
+        boolean flag = findElement(ele);
         try {
             flag = ele.isDisplayed();
+            scrollHighlightWaitToBeDisplayed(ele);
             ele.click();
             flag = true;
         } catch (Exception e) {
@@ -91,51 +97,47 @@ public class ActionsDriver {
             flag = false;
         } finally {
             if (flag) {
-                System.out.println("Successfully entered value");
+                System.out.println("Driver Click Action is performed on :"+ele);
             } else {
-                System.out.println("Unable to enter value");
+                System.out.println("Driver Click Action is not performed on :"+ele);
             }
-
         }
     }
 
-    public void JSClick(WebDriver driver, WebElement ele) {
+    public void JSClick(WebElement ele) {
         boolean flag = false;
         try {
-            scrollHighlight(driver,ele);
+            scrollHighlight(ele);
             JavascriptExecutor executor = (JavascriptExecutor) driver;
             executor.executeScript("arguments[0].click();", ele);
-            // driver.executeAsyncScript("arguments[0].click();", element);
             flag = true;
         }
         catch (Exception e) {
             throw e;
         } finally {
             if (flag) {
-                System.out.println("Click Action is performed on :"+ele);
+                System.out.println("JS click Action is performed on :"+ele);
             } else if (!flag) {
-                System.out.println("Click Action is not performed on :"+ele);
+                System.out.println("JS click Action is not performed on :"+ele);
             }
         }
     }
 
-    public void moveToElementClick(WebDriver driver, WebElement ele) {
+    public void moveToElementClick(WebElement ele) {
         Actions act = new Actions(driver);
-        scrollHighlightWaitToBeDisplayed(driver,ele);
+        scrollHighlightWaitToBeDisplayed(ele);
         act.moveToElement(ele).click().build().perform();
         System.out.println("Clicked on "+ ele);
     }
 
 
-    public void typeText(WebDriver driver, WebElement ele, String text) {
-        boolean flag = findElement(driver,ele);
+    public void typeText(WebElement ele, String text) {
+        boolean flag = findElement(ele);
         try {
             flag = ele.isDisplayed();
             ele.clear();
-            System.out.println("Entered text: "+text);
             ele.sendKeys(text);
-
-            // logger.info("Entered text :"+text);
+            System.out.println("Entered text: "+text);
             flag = true;
         } catch (Exception e) {
             System.out.println("Location Not found");
@@ -150,8 +152,8 @@ public class ActionsDriver {
         }
     }
 
-    public boolean validateText(WebDriver driver, WebElement ele, String text){
-        boolean status=findElement(driver,ele);
+    public boolean validateText(WebElement ele, String text){
+        boolean status=findElement(ele);
         if(status && ele.getText().equals(text)){
             status=true;
         }else{
@@ -160,10 +162,10 @@ public class ActionsDriver {
         return status;
     }
 
-    public boolean findElement(WebDriver driver, WebElement ele) {
+    public boolean findElement(WebElement ele) {
         boolean flag = false;
         try {
-            scrollHighlightWaitToBeDisplayed(driver,ele);
+            scrollHighlightWaitToBeDisplayed(ele);
             flag = true;
         } catch (Exception e) {
             // System.out.println("Location not found: "+locatorName);
@@ -178,12 +180,12 @@ public class ActionsDriver {
         return flag;
     }
 
-    public boolean isDisplayed(WebDriver driver, WebElement ele) {
+    public boolean isDisplayed(WebElement ele) {
         boolean flag = false;
-        flag = findElement(driver, ele);
+        flag = findElement(ele);
         if (flag) {
             flag = ele.isDisplayed();
-            highlightElement(driver,ele);
+            highlightElement(ele);
             if (flag) {
                 System.out.println("Element "+ele+" is Displayed");
             } else {
@@ -195,12 +197,12 @@ public class ActionsDriver {
         return flag;
     }
 
-    public boolean isSelected(WebDriver driver, WebElement ele) {
+    public boolean isSelected(WebElement ele) {
         boolean flag = false;
-        flag = findElement(driver, ele);
+        flag = findElement(ele);
         if (flag) {
             flag = ele.isSelected();
-            highlightElement(driver,ele);
+            highlightElement(ele);
             if (flag) {
                 System.out.println("Element "+ele+" is Selected");
             } else {
@@ -212,12 +214,12 @@ public class ActionsDriver {
         return flag;
     }
 
-    public boolean isEnabled(WebDriver driver, WebElement ele) {
+    public boolean isEnabled(WebElement ele) {
         boolean flag = false;
-        flag = findElement(driver, ele);
+        flag = findElement(ele);
         if (flag) {
             flag = ele.isEnabled();
-            highlightElement(driver,ele);
+            highlightElement(ele);
             if (flag) {
                 System.out.println("Element "+ele+" is Enabled");
             } else {
@@ -820,4 +822,9 @@ public class ActionsDriver {
         String currentDate = new SimpleDateFormat("yyyy-MM-dd-hhmmss").format(new Date());
         return currentDate;
     }
+
+    public void robotPressEnter() throws AWTException {
+        Robot rb=new Robot();
+    }
+
 }

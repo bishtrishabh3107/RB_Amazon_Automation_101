@@ -9,50 +9,50 @@ import org.openqa.selenium.support.PageFactory;
 public class LoginPage {
 
     WebDriver driver;
+    ActionsDriver actionsDriver;
 
     public LoginPage(WebDriver driver){
         this.driver=driver;
         PageFactory.initElements(driver,this);
+        actionsDriver=new ActionsDriver(driver);
     }
-
-    ActionsDriver actionsDriver=new ActionsDriver();
 
     @FindBy(xpath="//div[@id='nav-signin-tooltip']/a/span")
     private WebElement bannerHeaderSignIn;
     public void clickBannerSignIn(){
-        actionsDriver.moveToElementClick(driver,bannerHeaderSignIn);
+        actionsDriver.moveToElementClick(bannerHeaderSignIn);
     }
 
 
     @FindBy(xpath="//div[@class='layoutToolbarPadding']/a[2]")
     private WebElement linkHeaderSignIn;
     public void cickHeaderSignIn(){
-        actionsDriver.driverClick(driver,linkHeaderSignIn);
+        actionsDriver.driverClick(linkHeaderSignIn);
     }
 
     @FindBy(id="ap_email")
     private WebElement txtusername;
     public void setUserName(String username){
-        actionsDriver.typeText(driver,txtusername,username);
+        actionsDriver.typeText(txtusername,username);
     }
 
 
     @FindBy(id="continue")
     private WebElement btnContinue;
     public void cickContinue(){
-        actionsDriver.moveToElementClick(driver,btnContinue);
+        actionsDriver.moveToElementClick(btnContinue);
     }
 
     @FindBy(xpath="//input[@id='ap_password']")
     private WebElement txtpassword;
     public void setPassword(String password){
-        actionsDriver.typeText(driver,txtpassword,password);
+        actionsDriver.typeText(txtpassword,password);
     }
 
     @FindBy(xpath = "//input[@id='signInSubmit']")
     private WebElement btnLogin;
     public void clickLogin(){
-       actionsDriver.JSClick(driver,btnLogin);
+       actionsDriver.JSClick(btnLogin);
     }
 
 
@@ -68,10 +68,10 @@ public class LoginPage {
         boolean flag=false;
         switch (appName.toLowerCase()) {
             case ("amazon shopping"):
-                flag= actionsDriver.validateText(driver, xpathWelcomeAmzShp, "Hello, Rishabh");
+                flag= actionsDriver.validateText(xpathWelcomeAmzShp, "Hello, Rishabh");
             break;
             case ("amazon videos"):
-                flag= actionsDriver.validateText(driver, xpathWelcomeAmzVideo, "Rishabh Bisht");
+                flag= actionsDriver.validateText(xpathWelcomeAmzVideo, "Rishabh Bisht");
             break;
             default:
                 System.out.println("Invalid AppName");
@@ -82,14 +82,13 @@ public class LoginPage {
     @FindBy(xpath = "//div[@id='nav-logo']")
     private WebElement amazonNavLink;
     public void clickAmazonNavLink(){
-        actionsDriver.moveToElementClick(driver,amazonNavLink);
+        actionsDriver.moveToElementClick(amazonNavLink);
     }
 
     @FindBy(xpath = "//a[@id='nav-item-signout']")
     private WebElement signOutLink;
-    public void clickSignOutLink(){
-        actionsDriver.JSClick(driver,signOutLink);
+    public void clickSignOutLink() {
+        actionsDriver.JSClick(signOutLink);
     }
-
 
 }

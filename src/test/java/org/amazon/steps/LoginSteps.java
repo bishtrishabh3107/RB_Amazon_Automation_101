@@ -1,23 +1,19 @@
 package org.amazon.steps;
 
 import io.cucumber.datatable.DataTable;
-import org.amazon.actionsdriver.ActionsDriver;
 import org.amazon.pages.AmazonVideosLoginPage;
 import org.amazon.pages.LoginPage;
 import org.amazon.utils.BasePage;
-import org.amazon.utils.BrowserConfig;
 import org.amazon.utils.PropsReader;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 
 public class LoginSteps extends BasePage {
-    ActionsDriver actionsDriver=new ActionsDriver();
     LoginPage lp = new LoginPage(driver);
     AmazonVideosLoginPage alp=new AmazonVideosLoginPage(driver);
 
@@ -34,6 +30,10 @@ public class LoginSteps extends BasePage {
                     driver.get(PropsReader.amazonvideosUrl);
                     alp.clickAccountDropdown();
                     alp.clickSignInButton();
+                    break;
+                case ("amazon shopping without signin"):
+                    System.out.println("Login url is :" + PropsReader.amazonshoppingUrl);
+                    driver.get(PropsReader.amazonshoppingUrl);
                     break;
                 default:
                     System.out.println("Invalid Url");
@@ -100,11 +100,11 @@ public class LoginSteps extends BasePage {
             case ("amazon videos"):
                 alp.clickSignOutButton();
                 WebElement ele=driver.findElement(By.xpath("//div[@class='pv-nav-sign-up-button']/a"));
-                Assert.assertTrue(actionsDriver.validateText(driver,ele,"Try for free"));
+                Assert.assertEquals("Try for free", ele.getText());
                 break;
             default:
                 System.out.println("Invalid Application");
         }
-            }
+    }
 
 }

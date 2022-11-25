@@ -10,16 +10,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class BrowserConfig {
-
-    static WebDriver driver;
-
-//    public BrowserConfig(){
-//        BrowserConfig.driver=getDriver();
-//    }
-
+    public static WebDriver driver;
+    public BrowserConfig(){
+        BrowserConfig.driver=getDriver();
+    }
     String huburl="sjahsj";
-
     public WebDriver getDriver(){
+        if(driver==null){
         DesiredCapabilities capabilities = new DesiredCapabilities();
         if(PropsReader.driver.equals("local-chrome")){
             WebDriverManager.chromedriver().setup();
@@ -37,6 +34,8 @@ public class BrowserConfig {
             }catch (Exception e){
                 System.out.println(e.getMessage());
             }
+        }
+        return driver;
         }
         return driver;
     }

@@ -1,6 +1,5 @@
 package org.amazon.runnerFiles;
 
-import io.cucumber.java.After;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import org.amazon.utils.BrowserConfig;
@@ -10,7 +9,7 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions
         (
-                features= "src/test/resources/features",
+                features= "src/test/resources/features/",
                 glue= "org/amazon/stepDefinitions",
                 tags = "@Regression",
                 dryRun = false

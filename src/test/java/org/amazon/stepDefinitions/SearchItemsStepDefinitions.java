@@ -26,8 +26,8 @@ public class SearchItemsStepDefinitions {
         searchWithFilterSteps.enterFilters(dataTable);
     }
 
-    @Then("^Validate filters results$")
-    public void validate_filters_results(DataTable dataTable) {
-        searchWithFilterSteps.validateFilterResults(dataTable);
+    @Then("^Validate filters results--(.*)$")
+    public void validate_filters_results(String displayFormat,DataTable dataTable) {
+        searchWithFilterSteps.validateFilterResults(displayFormat,dataTable);
     }
 }

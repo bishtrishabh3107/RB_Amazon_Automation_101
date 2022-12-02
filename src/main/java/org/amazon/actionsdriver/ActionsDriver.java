@@ -172,6 +172,22 @@ public class ActionsDriver {
         return status;
     }
 
+    public String getTextString(WebElement ele){
+        boolean status=findElement(ele);
+        String strText = null;
+        try{
+            strText=((JavascriptExecutor)driver).executeScript("return arguments[0].firstChild.textContent;", ele).toString();
+            status=true;
+        }catch (Exception e){
+            status=false;
+        }finally {
+            if(status){
+                return strText;
+            }
+        }
+        return "Element not found to get text.";
+    }
+
     public boolean findElement(WebElement ele) {
         boolean flag = false;
         try {

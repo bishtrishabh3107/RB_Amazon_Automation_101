@@ -1,6 +1,7 @@
 package org.amazon.steps;
 
 import io.cucumber.datatable.DataTable;
+import org.amazon.actionsdriver.ActionsDriver;
 import org.amazon.pages.SearchResultsPage;
 import org.amazon.utils.BasePage;
 
@@ -11,6 +12,7 @@ import java.util.Map;
 public class SearchWithFilterSteps extends BasePage {
 
     SearchResultsPage srp=new SearchResultsPage(driver);
+    ActionsDriver actionsDriver=new ActionsDriver(driver);
     public void enterFilters(DataTable dataTable){
         List<Map<String,String>> list=dataTable.asMaps(String.class, String.class);
         String customerReview=list.get(0).get("CustomerReviews");
@@ -28,15 +30,25 @@ public class SearchWithFilterSteps extends BasePage {
         srp.clickBrandFilter(brandsList);
     }
 
-    public void validateFilterResults(DataTable dataTable){
+    public void validateFilterResults(String displayFormat,DataTable dataTable){
         List<Map<String,String>> list=dataTable.asMaps(String.class, String.class);
         String customerReview=list.get(0).get("CustomerReviews");
         String MinPrice=list.get(0).get("MinPrice");
         String MaxPrice=list.get(0).get("MaxPrice");
-//        String Discount=list.get(0).get("Discount");
-//        String brands=list.get(0).get("Brands");
-        srp.validateProductRating(Integer.parseInt(customerReview));
-        srp.validateProductPrice(Integer.parseInt(MinPrice),Integer.parseInt(MaxPrice));
+        String discount=list.get(0).get("Discount");
+        String brands=list.get(0).get("Brands");
+
+        if(displayFormat.equals("grid")){
+            srp.validateProductRating(Integer.parseInt(customerReview));
+            srp.validateProductPrice(Integer.parseInt(MinPrice),Integer.parseInt(MaxPrice));
+            srp.validateProductBrand(brands);
+            srp.validateProductDiscount(Integer.parseInt(discount));
+        } else if (displayFormat.equals("list")) {
+            srp.validateProductRatingList(Integer.parseInt(customerReview));
+            srp.validateProductPriceList(Integer.parseInt(MinPrice),Integer.parseInt(MaxPrice));
+            srp.validateProductBrandList(brands);
+            srp.validateProductDiscountList(Integer.parseInt(discount));
+        }
     }
 
     public List<String> getCommaSeperatedValues(String brands){

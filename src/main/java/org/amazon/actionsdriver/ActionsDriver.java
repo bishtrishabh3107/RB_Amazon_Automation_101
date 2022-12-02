@@ -25,6 +25,14 @@ public class ActionsDriver {
     }
 
     // Wait operations
+    public void hardwait(int time){
+        try{
+            Thread.sleep(time);
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+    }
+
     private void waitUntilCondition(ExpectedCondition condition, String timeoutMessage, int timeout){
         WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(timeout));
         wait.withMessage(timeoutMessage);
@@ -108,6 +116,7 @@ public class ActionsDriver {
         boolean flag = false;
         try {
             scrollHighlight(ele);
+            forElementToBeClickable(ele);
             JavascriptExecutor executor = (JavascriptExecutor) driver;
             executor.executeScript("arguments[0].click();", ele);
             flag = true;
@@ -134,6 +143,7 @@ public class ActionsDriver {
     public void typeText(WebElement ele, String text) {
         boolean flag = findElement(ele);
         try {
+            forElementToBeDisplayed(ele);
             flag = ele.isDisplayed();
             ele.clear();
             ele.sendKeys(text);

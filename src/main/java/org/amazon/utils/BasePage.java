@@ -10,7 +10,7 @@ public class BasePage {
 
     public BasePage(){
         PageFactory.initElements(driver,this);
-        this.driver=BrowserConfig.driver;
+        this.driver=browserConfig.getDriver();
     }
 
 }

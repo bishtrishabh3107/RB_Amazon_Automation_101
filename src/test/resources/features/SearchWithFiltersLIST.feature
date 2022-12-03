@@ -23,7 +23,7 @@ Feature: Search item with filters when products display type id LIST.
       |CustomerReviews |MinPrice |MaxPrice |Discount|Brands        |
       |       4        |   5000  |  20000  | 50     |Urban Terrain |
 
-  @Regression @Test
+  @Regression
   Scenario: 03 Search-- smart tv 55+ inch -- Search With Filters -- Display Type LIST
     Given Launch the--Amazon Shopping without SignIn--from--prop file
     When Search item on header--smart tv 55+ inch

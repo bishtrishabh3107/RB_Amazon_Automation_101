@@ -13,7 +13,9 @@ import org.junit.runner.RunWith;
                 features= "src/test/resources/features/",
                 glue= "org/amazon/stepDefinitions",
                 tags = "@Regression",
-                dryRun = false
+                dryRun = false,
+                plugin = { "pretty", "html:target/cucumber-reports/TestResult.html" },
+                monochrome = true
         )
 public class testRunnerFile {
         static BrowserConfig browserConfig = new BrowserConfig();

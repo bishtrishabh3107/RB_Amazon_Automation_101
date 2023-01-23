@@ -1,7 +1,7 @@
 Feature: Search item with filters when products display type id GRID.
   This feature verifies that we get search results based on filters when display type id GRID.
 
-  @Regression
+  @Regression @Sanity
   Scenario: 01 Search-- Rucksack Bags -- Search With Filters -- Display Type GRID
     Given Launch the--Amazon Shopping without SignIn--from--prop file
     When Search item on header--Rucksack Bags
@@ -34,7 +34,7 @@ Feature: Search item with filters when products display type id GRID.
       |CustomerReviews |MinPrice|MaxPrice|Discount|Brands|
       |       3        |   100 |  1000  | 10    |Colgate|
 
-  @Regression
+  @Regression @Sanity
   Scenario: 04 Search-- Bedsheets -- Search With Filters -- Display Type GRID
     Given Launch the--Amazon Shopping without SignIn--from--prop file
     When Search item on header--Bedsheets

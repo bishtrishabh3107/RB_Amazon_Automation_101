@@ -10,9 +10,9 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions
         (
-                features= "src/test/resources/features/",
+                features= "src/test/resources/features",
                 glue= "org/amazon/stepDefinitions",
-                tags = "@Regression",
+                tags = "@Sanity",
                 dryRun = false,
                 plugin = { "pretty", "html:target/cucumber-reports/TestResult.html" },
                 monochrome = true

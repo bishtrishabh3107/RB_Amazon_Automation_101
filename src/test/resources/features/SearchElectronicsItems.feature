@@ -1,7 +1,7 @@
 Feature: Search item with matching name
   This feature verifies that we get top results with the matching names for the item searched.
 
-  @Regression
+  @Regression @Sanity
   Scenario: 01 Search-- Washing Machine 7kg -- Get Results -- First Page - BestSeller
     Given Launch the--Amazon Shopping without SignIn--from--prop file
     When Search item on header--washing machine 7kg
@@ -16,7 +16,7 @@ Feature: Search item with matching name
     Then Get Electronics Item from result--NonSponsored
     Then Get Electronics Item from result--AmazonChoice
 
-  @Regression
+  @Regression @Sanity
   Scenario: 02 Search -- Air Purifier-LED TV 55 inches full hd  -- Get Results -- FirstPage - BestSeller - Sponsored - NonSponsored - AmazonChoice
     Given Launch the--Amazon Shopping without SignIn--from--prop file
     When Search item on header--Action Camera
